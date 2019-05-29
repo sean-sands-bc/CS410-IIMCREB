@@ -9,7 +9,7 @@ import javax.swing.*;
 public class LoginWindow extends JFrame {
 	public LoginWindow()
 	{
-		setName("Login");
+		setTitle("Login");
 		JPanel logPnl = new JPanel();
 		logPnl.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -17,8 +17,9 @@ public class LoginWindow extends JFrame {
 		JLabel logUsernameLbl = new JLabel("Username");
 		JLabel logPasswordLbl = new JLabel("Password");
 		
-		JTextField logUsernameTxt = new JTextField();
-		JTextField logPasswordTxt = new JTextField();
+		JTextField logUsernameTxt = new JTextField(10);
+		
+		JTextField logPasswordTxt = new JTextField(10);
 		
 		JButton logLogBtn = new JButton("Login");
 		

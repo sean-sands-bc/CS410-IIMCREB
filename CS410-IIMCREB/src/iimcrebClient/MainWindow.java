@@ -9,7 +9,7 @@ import javax.swing.*;
 public class MainWindow extends JFrame{
 	public MainWindow()
 	{
-		setName("IIMCREB");
+		setTitle("IIMCREB");
 		JPanel mainPnl = new JPanel();
 		mainPnl.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

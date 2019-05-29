@@ -9,7 +9,7 @@ import javax.swing.*;
 public class RegisterWindow extends JFrame {
 	public RegisterWindow()
 	{
-		setName("Register");
+		setTitle("Register");
 		JPanel regPnl = new JPanel();
 		regPnl.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -17,8 +17,8 @@ public class RegisterWindow extends JFrame {
 		JLabel regUsernameLbl = new JLabel("Username");
 		JLabel regPasswordLbl = new JLabel("Password");
 		
-		JTextField regUsernameTxt = new JTextField();
-		JTextField regPasswordTxt = new JTextField();
+		JTextField regUsernameTxt = new JTextField(10);
+		JTextField regPasswordTxt = new JTextField(10);
 		
 		JButton regRegBtn = new JButton("Register");
 		
