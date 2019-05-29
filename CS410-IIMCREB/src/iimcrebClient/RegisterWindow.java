@@ -7,8 +7,11 @@ import java.awt.GridBagLayout;
 import javax.swing.*;
 
 public class RegisterWindow extends JFrame {
-	public RegisterWindow()
+	ClientController cc;
+	
+	public RegisterWindow(ClientController cc)
 	{
+		this.cc = cc;
 		setTitle("Register");
 		JPanel regPnl = new JPanel();
 		regPnl.setLayout(new GridBagLayout());

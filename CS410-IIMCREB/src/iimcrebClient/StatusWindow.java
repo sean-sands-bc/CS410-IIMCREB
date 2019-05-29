@@ -7,8 +7,11 @@ import java.awt.GridBagLayout;
 import javax.swing.*;
 
 public class StatusWindow extends JFrame {
-	public StatusWindow()
+	ClientController cc;
+	
+	public StatusWindow(ClientController cc)
 	{
+		this.cc = cc;
 		setTitle("Status");
 		
 		JPanel staPnl = new JPanel();

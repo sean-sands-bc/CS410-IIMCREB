@@ -7,8 +7,11 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class MainWindow extends JFrame{
-	public MainWindow()
+	ClientController cc;
+	
+	public MainWindow(ClientController cc)
 	{
+		this.cc = cc;
 		setTitle("IIMCREB");
 		JPanel mainPnl = new JPanel();
 		mainPnl.setLayout(new GridBagLayout());
@@ -20,7 +23,7 @@ public class MainWindow extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e)	//	chanage backend value and fill fields when clicked
 			{
-				RegisterWindow rw = new RegisterWindow();
+				RegisterWindow rw = new RegisterWindow(cc);
 			}
 		});
 		
@@ -31,7 +34,7 @@ public class MainWindow extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e)	//	chanage backend value and fill fields when clicked
 			{
-				LoginWindow lw = new LoginWindow();
+				LoginWindow lw = new LoginWindow(cc);
 			}
 		});
 		
