@@ -3,6 +3,8 @@ package iimcrebClient;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -17,6 +19,15 @@ public class ErrorWindow extends JFrame {
 		
 		JLabel errMessageLbl = new JLabel(message);
 		JButton errOkBtn = new JButton("OK");
+		
+		errOkBtn.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				dispose();
+			}
+		});
 		
 		c.gridx = 0;
 		c.gridy = 0;

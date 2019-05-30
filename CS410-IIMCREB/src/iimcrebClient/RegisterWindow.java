@@ -3,6 +3,8 @@ package iimcrebClient;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -24,6 +26,27 @@ public class RegisterWindow extends JFrame {
 		JTextField regPasswordTxt = new JTextField(10);
 		
 		JButton regRegBtn = new JButton("Register");
+		
+		regRegBtn.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)	//	chanage backend value and fill fields when clicked
+			{
+				System.out.println("reg button");
+				int result = cc.register(regUsernameTxt.getText(), regPasswordTxt.getText());
+				System.out.print("reg result ");
+				System.out.println(result);
+				if(result == 0)
+				{
+					ErrorWindow ew = new ErrorWindow("successfully registered");
+					dispose();
+				}
+				else if (result==1)
+				{
+					ErrorWindow ew = new ErrorWindow("username taken");
+				}
+			}
+		});
 		
 		c.gridx = 0;
 		c.gridy = 0;

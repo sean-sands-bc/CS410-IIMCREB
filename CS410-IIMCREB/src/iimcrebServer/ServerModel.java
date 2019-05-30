@@ -15,9 +15,19 @@ public class ServerModel {
 		chatlogs = new Hashtable<String,String>();
 	}
 	
+	public boolean usernameExists(String username)
+	{
+		return passwords.containsKey(username);
+	}
+	
 	public String getPassword(String username)
 	{
 		return passwords.get(username);
+	}
+	
+	public void setPassword(String username, String password)
+	{
+		passwords.put(username, password);
 	}
 	
 	public String getStatus(String username)

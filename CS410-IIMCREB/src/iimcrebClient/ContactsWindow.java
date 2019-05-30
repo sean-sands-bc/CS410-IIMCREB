@@ -14,6 +14,11 @@ public class ContactsWindow extends JFrame {
 		//this.cc = cc;
 		setTitle("Contacts");
 		JPanel conPnl = new JPanel();
+		
+		add(conPnl);
+		setPreferredSize(new Dimension(200, 500));
+		pack();
+		setVisible(true);
 	}
 
 }

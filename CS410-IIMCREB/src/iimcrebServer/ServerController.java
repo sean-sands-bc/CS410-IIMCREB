@@ -61,7 +61,7 @@ public class ServerController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			System.out.println("socket connection");
 		}
 
 		public void scpRegister()
@@ -75,7 +75,26 @@ public class ServerController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			if(serverModel.usernameExists(un))
+			{
+				try {
+					stringOut.writeObject("taken");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+				serverModel.setPassword(un, pw);
+				serverModel.setStatus(un, "Offline");
+				try {
+					stringOut.writeObject("register");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			
 		}
 		
@@ -90,9 +109,32 @@ public class ServerController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(pw.equals(serverModel.getPassword(un)))
+			if(!serverModel.usernameExists(un))
 			{
-				
+				try {
+					stringOut.writeObject("missing");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else if(pw.equals(serverModel.getPassword(un)))
+			{
+				try {
+					stringOut.writeObject("login");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+				try {
+					stringOut.writeObject("incorrect");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		
@@ -150,7 +192,9 @@ public class ServerController {
 			{
 				String command="";
 				try {
+					System.out.print("serscpcomm ");
 					command = (String)stringIn.readObject();
+					System.out.println(command);
 				} catch (ClassNotFoundException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -160,12 +204,16 @@ public class ServerController {
 				case "":
 					return;
 				case "register":
+					scpRegister();
 					break;
 				case "login":
+					scpLogin();
 					break;
 				case "getStatus":
+					scpGetStatus();
 					break;
 				case "setStatus":
+					scpSetStatus();
 					break;
 				
 				}

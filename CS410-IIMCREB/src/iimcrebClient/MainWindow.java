@@ -21,7 +21,7 @@ public class MainWindow extends JFrame{
 		mainRegBtn.addActionListener(new ActionListener()
 		{
 			@Override
-			public void actionPerformed(ActionEvent e)	//	chanage backend value and fill fields when clicked
+			public void actionPerformed(ActionEvent e)
 			{
 				RegisterWindow rw = new RegisterWindow(cc);
 			}
@@ -32,7 +32,7 @@ public class MainWindow extends JFrame{
 		mainLogBtn.addActionListener(new ActionListener()
 		{
 			@Override
-			public void actionPerformed(ActionEvent e)	//	chanage backend value and fill fields when clicked
+			public void actionPerformed(ActionEvent e)
 			{
 				LoginWindow lw = new LoginWindow(cc);
 			}
