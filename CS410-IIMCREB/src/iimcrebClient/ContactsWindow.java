@@ -7,11 +7,11 @@ import java.awt.GridBagLayout;
 import javax.swing.*;
 
 public class ContactsWindow extends JFrame {
-	ClientController cc;
+	//ClientController cc;
 	
 	public ContactsWindow(ClientController cc)
 	{
-		this.cc = cc;
+		//this.cc = cc;
 		setTitle("Contacts");
 		JPanel conPnl = new JPanel();
 	}

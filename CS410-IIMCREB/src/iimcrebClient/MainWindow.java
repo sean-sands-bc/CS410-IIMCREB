@@ -7,11 +7,11 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class MainWindow extends JFrame{
-	ClientController cc;
+	//ClientController cc;
 	
 	public MainWindow(ClientController cc)
 	{
-		this.cc = cc;
+		//this.cc = cc;
 		setTitle("IIMCREB");
 		JPanel mainPnl = new JPanel();
 		mainPnl.setLayout(new GridBagLayout());

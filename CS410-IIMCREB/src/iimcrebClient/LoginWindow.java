@@ -7,11 +7,11 @@ import java.awt.GridBagLayout;
 import javax.swing.*;
 
 public class LoginWindow extends JFrame {
-	ClientController cc;
+	//ClientController cc;
 	
 	public LoginWindow(ClientController cc)
 	{
-		this.cc = cc;
+		//this.cc = cc;
 		setTitle("Login");
 		JPanel logPnl = new JPanel();
 		logPnl.setLayout(new GridBagLayout());
