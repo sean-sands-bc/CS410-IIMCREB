@@ -10,6 +10,8 @@ public class ClientController {
 	String host = "localhost";
 	Socket socket;
 	String username;
+	String status;
+	
 	ObjectInputStream stringIn;
 	ObjectOutputStream stringOut;
 	
@@ -93,20 +95,27 @@ public class ClientController {
 			e.printStackTrace();
 		}
 		
-		return new String();
+		try {
+			status = (String)stringIn.readObject();
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return status;
 	}
 	
-	public String setStatus(String status)
+	public void setStatus(String st)
 	{
 		try {
 			stringOut.writeObject("setStatus");
 			stringOut.writeObject(username);
-			stringOut.writeObject(status);
+			stringOut.writeObject(st);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return status;
+		status = st;
 	}
 	
 	public String getFriendStatus(String friendname)
@@ -118,8 +127,15 @@ public class ClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		String frst = "";
+		try {
+			frst = (String)stringIn.readObject();
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		return new String();
+		return frst;
 	}
 	
 

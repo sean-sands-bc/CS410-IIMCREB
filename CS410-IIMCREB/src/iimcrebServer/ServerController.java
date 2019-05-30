@@ -120,6 +120,7 @@ public class ServerController {
 			}
 			else if(pw.equals(serverModel.getPassword(un)))
 			{
+				serverModel.setStatus(un, "Online");
 				try {
 					stringOut.writeObject("login");
 				} catch (IOException e) {
