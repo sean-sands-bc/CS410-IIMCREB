@@ -3,13 +3,15 @@ package iimcrebClient;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 public class StatusWindow extends JFrame {
 	//ClientController cc;
 	
-	public StatusWindow(ClientController cc)
+	public StatusWindow(ClientController cc, ContactsWindow cw)
 	{
 		//this.cc = cc;
 		setTitle("Status");
@@ -21,6 +23,42 @@ public class StatusWindow extends JFrame {
 		JButton staOnBtn = new JButton("Online");
 		JButton staBuBtn = new JButton("Busy");
 		JButton staOfBtn = new JButton("Offline");
+		
+		staOnBtn.addActionListener(new ActionListener() 
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				cc.setStatus("Online");
+				cw.updateStatus();
+				dispose();
+			}
+			
+		});
+		
+		staBuBtn.addActionListener(new ActionListener() 
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				cc.setStatus("Busy");
+				cw.updateStatus();
+				dispose();
+			}
+			
+		});
+		
+		staOfBtn.addActionListener(new ActionListener() 
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				cc.setStatus("Offline");
+				cw.updateStatus();
+				dispose();
+			}
+			
+		});
 		
 		c.gridx = 0;
 		c.gridy = 0;

@@ -80,6 +80,11 @@ public class ClientController {
 		return 3;
 	}
 	
+	public String getUsername()
+	{
+		return username;
+	}
+	
 	public void setUsername(String un)
 	{
 		username = un;
@@ -115,7 +120,14 @@ public class ClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		status = st;
+		//status = st;
+		try {
+			status = (String)stringIn.readObject();
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public String getFriendStatus(String friendname)
