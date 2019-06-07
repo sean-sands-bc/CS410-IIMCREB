@@ -180,6 +180,16 @@ public class ServerController {
 			
 		}
 		
+		public void scpSendMsg()
+		{
+			
+		}
+		
+		public void scpUpdateLog()
+		{
+			
+		}
+		
 		@Override
 		public void run() {
 			//	only accept local connections
@@ -216,9 +226,39 @@ public class ServerController {
 				case "setStatus":
 					scpSetStatus();
 					break;
+				case "sendMsg":
+					scpSendMsg();
+					break;
+				case "updateLog":
+					scpUpdateLog();
+					break;
+				case "addFriend":
+					scpAddFriend();
+					break;
+				case "delFriend":
+					scpDelFriends();
+					break;
+				case "getFriends":
+					scpGetFriends();
+					break;
 				
 				}
 			}
+			
+		}
+
+		private void scpGetFriends() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		private void scpDelFriends() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		private void scpAddFriend() {
+			// TODO Auto-generated method stub
 			
 		}
 		
