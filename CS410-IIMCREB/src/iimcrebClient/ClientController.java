@@ -150,5 +150,76 @@ public class ClientController {
 		return frst;
 	}
 	
+	public void sendMsg(String friendname, String msg)
+	{
+		try {
+			stringOut.writeObject("sendMsg");
+			stringOut.writeObject(username);
+			stringOut.writeObject(friendname);
+			stringOut.writeObject(msg);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public String updateLog(String friendname)
+	{
+		try {
+			stringOut.writeObject("updateLog");
+			stringOut.writeObject(username);
+			stringOut.writeObject(friendname);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String log = "";
+		try {
+			log = (String)stringIn.readObject();
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return log;
+	}
+	
+	public void addFriend(String friendname)
+	{
+		try {
+			stringOut.writeObject("addFriend");
+			stringOut.writeObject(username);
+			stringOut.writeObject(friendname);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void delFriend(String friendname)
+	{
+		try {
+			stringOut.writeObject("delFriend");
+			stringOut.writeObject(username);
+			stringOut.writeObject(friendname);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public String[] getFriends()
+	{
+		try {
+			stringOut.writeObject("getFriends");
+			stringOut.writeObject(username);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+		
+	}
 
 }
