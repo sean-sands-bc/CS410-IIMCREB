@@ -1,6 +1,7 @@
 package iimcrebServer;
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 import java.io.*;
 
 public class ServerSQLLink {
@@ -31,21 +32,22 @@ public class ServerSQLLink {
 //            }
 //        }
     }
-	String readEntry(String prompt) {
-        try {
-            StringBuffer buffer = new StringBuffer();
-            System.out.print(prompt);
-            System.out.flush();
-            int c = System.in.read();
-            while(c != '\n' && c != -1) {
-                buffer.append((char)c);
-                c = System.in.read();
-            }
-            return buffer.toString().trim();
-        } catch (IOException e) {
-            return "";
-        }
-    }
+//	String readEntry(String prompt) {
+//        try {
+//            StringBuffer buffer = new StringBuffer();
+//            System.out.print(prompt);
+//            System.out.flush();
+//            int c = System.in.read();
+//            while(c != '\n' && c != -1) {
+//                buffer.append((char)c);
+//                c = System.in.read();
+//            }
+//            return buffer.toString().trim();
+//        } catch (IOException e) {
+//            return "";
+//        }
+//    }
+	//Determines if the given name is already in the database
 	public boolean getName(String username) {
 		try {
 			String query = "select user_name from UID where user_name = ?";
@@ -61,7 +63,7 @@ public class ServerSQLLink {
             return false;
     	}
 	}
-	
+	//Returns the password associated with a given username
 	public String getPassword(String username) {
 		try {
 			String query = "select password from UID where user_name = ?";
@@ -77,22 +79,23 @@ public class ServerSQLLink {
             return "";
     	}
 	}
-	
+	//Creates a new user along with all their data
 	public void setPassword(String username, String password) {
 		try {
-			String query = "insert into UID values (?,?,?,?)";
+			String query = "insert into UID values (?,?,?,?,?)";
 			PreparedStatement p = conn.prepareStatement (query);
 			p.clearParameters();
 			p.setString(1, username);
 			p.setString(2, "Offline");
 			p.setString(3, password);
 			p.setString(4, "0");
+			p.setString(5, "genericemail@email.com");
 			p.executeUpdate();
 		}catch(SQLException ex) {
 			//System.out.println(ex);
 		}
 	}
-	
+	//Returns the status of a given username
 	public String getStatus(String username) {
 		try {
 			String query = "select status from UID where user_name = ?";
@@ -108,7 +111,7 @@ public class ServerSQLLink {
             return "";
     	}
 	}
-	
+	//Sets the status for a user
 	public void setStatus(String username, String status) {
 		try {
 			String query="update UID set status=? where user_name=?";
@@ -121,7 +124,7 @@ public class ServerSQLLink {
 		}
 	}
 	
-	
+	//Prints all the usernames in the database
 	public void printUserNames() {
 		try {
 			String query1="select * from UID";
@@ -135,6 +138,85 @@ public class ServerSQLLink {
 		}
 		catch(SQLException ex) { 
             System.out.println("Could not find an account matching that user name and password.");
+    	}
+	}
+	//Returns a HashMap, sorted by time, of messages send by one user to another
+	public HashMap<Timestamp,String> getMessages(String sender, String reciever) {
+		HashMap<Timestamp, String> messages=new HashMap<Timestamp, String>();
+		try {
+			String query="select * from ChattingDatabase where user_name_send = ? and user_name_recieve=?";
+			PreparedStatement p = conn.prepareStatement(query);
+    		p.clearParameters();
+    		p.setString(1, sender);
+			p.setString(2, reciever);
+    		ResultSet r= p.executeQuery();
+    		while(r.next()){
+    			Timestamp time=r.getTimestamp(3);
+    			String message=r.getString(4);
+    			messages.put(time, message);
+    		}
+		}
+		catch(SQLException ex) { 
+			System.out.println("error");
+    	}
+		return messages;
+	}
+	//Adds a message to the ChattingDatabase
+	public void sendMessage(String sender, String reciever, String message) {
+		try {
+			String query= "insert into ChattingDatabase values (?,?,?,?)";
+			PreparedStatement p = conn.prepareStatement(query);
+    		p.clearParameters();
+    		p.setString(1, sender);
+			p.setString(2, reciever);
+			java.util.Date date = new Date();
+			Timestamp sqlDate = new java.sql.Timestamp(date.getTime());
+			p.setTimestamp(3, sqlDate);
+			p.setString(4, message);
+			p.executeUpdate();
+		}
+		catch(SQLException ex) { 
+			System.out.println("error");
+    	}
+	}
+	//Returns a HashMap, sorted by time, of all messages sent between users
+	public HashMap<Timestamp,String> getAllMessages(String user1, String user2) {
+		HashMap<Timestamp, String> oneToTwo=getMessages(user1,user2);
+		HashMap<Timestamp, String> twoToOne=getMessages(user2,user1);
+		oneToTwo.putAll(twoToOne);
+		return oneToTwo;
+	}
+	//Returns a list of everyone the username is friends list
+	public LinkedList<String> getFriendsList(String username){
+		LinkedList<String> friends=new LinkedList<String>();
+		try {
+			String query="select user_name_friendee from FriendList where user_name_friender = ?";
+			PreparedStatement p = conn.prepareStatement(query);
+    		p.clearParameters();
+    		p.setString(1, username);
+    		ResultSet r= p.executeQuery();
+    		while(r.next()){
+    			String friend=r.getString(1);
+    			friends.add(friend);
+    		}
+		}
+		catch(SQLException ex) { 
+			System.out.println("error");
+    	}
+		return friends;
+	}
+	//Allows for a user to be added to a friendslist
+	public void newFriend(String friender, String friendee) {
+		try {
+			String query= "insert into FriendList values (?,?)";
+			PreparedStatement p = conn.prepareStatement(query);
+    		p.clearParameters();
+    		p.setString(1, friender);
+			p.setString(2, friendee);
+			p.executeUpdate();
+		}
+		catch(SQLException ex) { 
+			System.out.println("error");
     	}
 	}
 }
