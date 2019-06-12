@@ -80,7 +80,7 @@ public class ServerSQLLink {
     	}
 	}
 	//Creates a new user along with all their data
-	public void setPassword(String username, String password) {
+	public void newUser(String username, String password) {
 		try {
 			String query = "insert into UID values (?,?,?,?,?)";
 			PreparedStatement p = conn.prepareStatement (query);
@@ -123,23 +123,6 @@ public class ServerSQLLink {
 			
 		}
 	}
-	
-	//Prints all the usernames in the database
-	public void printUserNames() {
-		try {
-			String query1="select * from UID";
-			PreparedStatement p = conn.prepareStatement(query1);
-    		p.clearParameters();
-    		ResultSet r1= p.executeQuery();
-    		while(r1.next()){
-    			String name=r1.getString(1);
-    			System.out.println(name);
-    		}
-		}
-		catch(SQLException ex) { 
-            System.out.println("Could not find an account matching that user name and password.");
-    	}
-	}
 	//Returns a HashMap, sorted by time, of messages send by one user to another
 	public HashMap<Timestamp,String> getMessages(String sender, String reciever) {
 		HashMap<Timestamp, String> messages=new HashMap<Timestamp, String>();
@@ -152,7 +135,7 @@ public class ServerSQLLink {
     		ResultSet r= p.executeQuery();
     		while(r.next()){
     			Timestamp time=r.getTimestamp(3);
-    			String message=r.getString(4);
+    			String message=r.getString(1)+": "+r.getString(4);
     			messages.put(time, message);
     		}
 		}
