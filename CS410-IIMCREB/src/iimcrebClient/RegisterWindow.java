@@ -21,9 +21,11 @@ public class RegisterWindow extends JFrame {
 
 		JLabel regUsernameLbl = new JLabel("Username");
 		JLabel regPasswordLbl = new JLabel("Password");
+		JLabel regEmailLbl=new JLabel("Email");
 		
-		JTextField regUsernameTxt = new JTextField(10);
-		JTextField regPasswordTxt = new JTextField(10);
+		JTextField regUsernameTxt = new JTextField(20);
+		JTextField regPasswordTxt = new JTextField(20);
+		JTextField regEmailTxt=new JTextField(20);
 		
 		JButton regRegBtn = new JButton("Register");
 		
@@ -33,7 +35,7 @@ public class RegisterWindow extends JFrame {
 			public void actionPerformed(ActionEvent e)
 			{
 				System.out.println("reg button");
-				int result = cc.register(regUsernameTxt.getText(), regPasswordTxt.getText());
+				int result = cc.register(regUsernameTxt.getText(), regPasswordTxt.getText(), regEmailTxt.getText());
 				System.out.print("reg result ");
 				System.out.println(result);
 				if(result == 0)
@@ -55,25 +57,32 @@ public class RegisterWindow extends JFrame {
 		
 		regPnl.add(regUsernameLbl, c);
 		
+		c.gridx=0;
 		c.gridy = 1;
-		
 		regPnl.add(regPasswordLbl, c);
+		
+		c.gridx = 0;
+		c.gridy = 2;
+		regPnl.add(regEmailLbl, c);
 		
 		c.gridx = 1;
 		c.gridy = 0;
-		
 		regPnl.add(regUsernameTxt, c);
-		
+
+		c.gridx=1;
 		c.gridy = 1;
-		
 		regPnl.add(regPasswordTxt, c);
 		
+		c.gridx=1;
 		c.gridy = 2;
+		regPnl.add(regEmailTxt, c);
 		
+		c.gridx=1;
+		c.gridy = 3;
 		regPnl.add(regRegBtn, c);
 		
 		add(regPnl);
-		setPreferredSize(new Dimension(200, 150));
+		setPreferredSize(new Dimension(350, 200));
 		pack();
 		setVisible(true);
 	}

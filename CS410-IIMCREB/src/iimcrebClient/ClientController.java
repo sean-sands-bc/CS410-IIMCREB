@@ -28,7 +28,7 @@ public class ClientController {
 		}
 	}
 	
-	public int register(String username, String password)
+	public int register(String username, String password, String email)
 	{
 		try {
 			stringOut.writeObject("register");
@@ -36,6 +36,8 @@ public class ClientController {
 			stringOut.writeObject(username);
 			System.out.println("clireguser");
 			stringOut.writeObject(password);
+			System.out.println("cliregpass");
+			stringOut.writeObject(email);
 			System.out.println("cliregpass");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -162,7 +164,7 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String updateLog(String friendname)
 	{
 		try {
@@ -180,10 +182,10 @@ public class ClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return log;
 	}
-	
+
 	public void addFriend(String friendname)
 	{
 		try {
@@ -195,7 +197,7 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void delFriend(String friendname)
 	{
 		try {
@@ -207,7 +209,7 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String[] getFriends()
 	{
 		try {
@@ -217,9 +219,10 @@ public class ClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return null;
-		
+
 	}
+	
 
 }

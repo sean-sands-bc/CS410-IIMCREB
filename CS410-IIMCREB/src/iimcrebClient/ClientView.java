@@ -5,8 +5,5 @@ public class ClientView {
 	{
 		ClientController cc = new ClientController();
 		MainWindow mw = new MainWindow(cc);
-		
-		
 	}
-
 }
