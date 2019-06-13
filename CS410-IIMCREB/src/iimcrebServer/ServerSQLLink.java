@@ -80,16 +80,15 @@ public class ServerSQLLink {
     	}
 	}
 	//Creates a new user along with all their data
-	public void newUser(String username, String password) {
+	public void newUser(String username, String password, String email) {
 		try {
-			String query = "insert into UID values (?,?,?,?,?)";
+			String query = "insert into UID values (?,?,?,?)";
 			PreparedStatement p = conn.prepareStatement (query);
 			p.clearParameters();
 			p.setString(1, username);
 			p.setString(2, "Offline");
 			p.setString(3, password);
-			p.setString(4, "0");
-			p.setString(5, "genericemail@email.com");
+			p.setString(4, email);
 			p.executeUpdate();
 		}catch(SQLException ex) {
 			//System.out.println(ex);

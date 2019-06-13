@@ -68,9 +68,11 @@ public class ServerController {
 		{
 			String un = "";
 			String pw = "";
+			String em="";
 			try {
 				un = (String)stringIn.readObject();
 				pw = (String)stringIn.readObject();
+				em=(String)stringIn.readObject();
 			} catch (ClassNotFoundException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -86,7 +88,7 @@ public class ServerController {
 			}
 			else
 			{
-				serverModel.setPassword(un, pw);
+				serverModel.setPassword(un, pw, em);
 				serverModel.setStatus(un, "Offline");
 				try {
 					stringOut.writeObject("register");
@@ -180,16 +182,6 @@ public class ServerController {
 			
 		}
 		
-		public void scpSendMsg()
-		{
-			
-		}
-		
-		public void scpUpdateLog()
-		{
-			
-		}
-		
 		@Override
 		public void run() {
 			//	only accept local connections
@@ -226,39 +218,9 @@ public class ServerController {
 				case "setStatus":
 					scpSetStatus();
 					break;
-				case "sendMsg":
-					scpSendMsg();
-					break;
-				case "updateLog":
-					scpUpdateLog();
-					break;
-				case "addFriend":
-					scpAddFriend();
-					break;
-				case "delFriend":
-					scpDelFriends();
-					break;
-				case "getFriends":
-					scpGetFriends();
-					break;
 				
 				}
 			}
-			
-		}
-
-		private void scpGetFriends() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		private void scpDelFriends() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		private void scpAddFriend() {
-			// TODO Auto-generated method stub
 			
 		}
 		

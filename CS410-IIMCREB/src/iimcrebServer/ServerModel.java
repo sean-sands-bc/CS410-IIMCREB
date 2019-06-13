@@ -22,9 +22,9 @@ public class ServerModel {
 		return s.getPassword(username);
 	}
 	
-	public void setPassword(String username, String password)
+	public void setPassword(String username, String password, String email)
 	{
-		s.newUser(username, password);
+		s.newUser(username, password, email);
 	}
 	
 	public String getStatus(String username)
