@@ -2,12 +2,11 @@ CREATE TABLE UID(
 	user_name varchar(50) not null,
     status varchar(15),
 	password varchar(50),
-    friendlist integer(9),
     email varchar(50),
 	key (user_name)
 );
 
-LOAD DATA LOCAL INFILE "C:/Users/Dawson/Documents/Dawson/College/Bellevue College/Software Engineering/Sprint 1/SQLdatabase/UID.csv"
+LOAD DATA LOCAL INFILE "C:/Users/Dawson/Documents/Dawson/College/Bellevue College/Software Engineering/Sprint2/UID.csv"
 INTO TABLE UID
 FIELDS ENCLOSED BY '"' TERMINATED BY ',' LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
@@ -20,7 +19,7 @@ CREATE TABLE ChattingDatabase(
     primary key(user_name_send, user_name_recieve,time_sent)
 );
 
-LOAD DATA LOCAL INFILE "C:/Users/Dawson/Documents/Dawson/College/Bellevue College/Software Engineering/Sprint 1/SQLdatabase/ChattingData.csv"
+LOAD DATA LOCAL INFILE "C:/Users/Dawson/Documents/Dawson/College/Bellevue College/Software Engineering/Sprint2/ChattingData.csv"
 INTO TABLE ChattingDatabase
 FIELDS OPTIONALLY ENCLOSED BY '"' TERMINATED BY ',' LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
@@ -33,7 +32,7 @@ CREATE TABLE FriendList(
     user_name_friendee varchar(50) not null
 );
 
-LOAD DATA LOCAL INFILE "C:/Users/Dawson/Documents/Dawson/College/Bellevue College/Software Engineering/Sprint 1/SQLdatabase/FriendList.csv"
+LOAD DATA LOCAL INFILE "C:/Users/Dawson/Documents/Dawson/College/Bellevue College/Software Engineering/Sprint2/FriendList.csv"
 INTO TABLE FriendList
 FIELDS OPTIONALLY ENCLOSED BY '"' TERMINATED BY ',' LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
