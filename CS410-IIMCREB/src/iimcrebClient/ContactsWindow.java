@@ -5,12 +5,15 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 
 import javax.swing.*;
 
 public class ContactsWindow extends JFrame {
 	ClientController cc;
 	JButton staBtn;
+	JMenuBar menuBar;
+	JMenu messageHistory;
 	
 	public ContactsWindow(ClientController cc)
 	{
@@ -25,6 +28,14 @@ public class ContactsWindow extends JFrame {
 		
 		JLabel unLbl = new JLabel(cc.getUsername());
 		staBtn = new JButton(cc.getStatus());
+		
+		messageHistory = new JMenu("Messages");
+		LinkedList<String> users=cc.getUsers();
+		for(String s: users) {
+			JMenuItem menuItem = new JMenuItem(s);
+			menuItem.addActionListener((e)->{MessageWindow mW= new MessageWindow(cc,s);});
+			messageHistory.add(menuItem);
+		}
 		
 		staBtn.addActionListener(new ActionListener() 
 		{
@@ -45,6 +56,10 @@ public class ContactsWindow extends JFrame {
 		c.gridx = 1;
 		
 		conPnl.add(staBtn, c);
+		
+		menuBar=new JMenuBar();
+		menuBar.add(messageHistory);
+		setJMenuBar(menuBar);
 		
 		add(conPnl);
 		setPreferredSize(new Dimension(200, 500));

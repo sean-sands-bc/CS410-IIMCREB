@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class ClientController {
 	int port = 8675;
@@ -175,9 +178,17 @@ public class ClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String log = "";
+		String log="";
 		try {
-			log = (String)stringIn.readObject();
+			Object o=stringIn.readObject();
+			
+			System.out.println(o);
+			if(stringIn.available()>0)
+			stringIn.readObject();
+			
+			
+			log = (String)o;
+			System.out.println(log);
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -222,6 +233,24 @@ public class ClientController {
 
 		return null;
 
+	}
+	
+	public LinkedList<String> getUsers(){
+		try {
+			stringOut.writeObject("getUsers");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		LinkedList<String> users=new LinkedList<String>();
+		try {
+			users = (LinkedList<String>)stringIn.readObject();
+		} catch (ClassNotFoundException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return users;
 	}
 	
 
