@@ -3,6 +3,7 @@ package iimcrebServer;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.LinkedList;
 
 public class ServerModel {
 	ServerSQLLink s;
@@ -39,6 +40,12 @@ public class ServerModel {
 	
 	public HashMap<Timestamp,String> getMessages(String user1, String user2){
 		return s.getAllMessages(user1, user2);
+	}
+	public void sendMessage(String user1, String user2, String message) {
+		s.sendMessage(user1, user2, message);
+	}
+	public LinkedList<String> getUsers(){
+		return s.userNames();
 	}
 
 }

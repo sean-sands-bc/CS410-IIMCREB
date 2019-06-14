@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
+import java.sql.Timestamp;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class ServerController {
 	int port = 8675;
@@ -181,6 +185,55 @@ public class ServerController {
 			}
 			
 		}
+		public void scpSendMsg()
+		{
+			String sender = "";
+			String reciever="";
+			String message = "";
+			try {
+				sender = (String)stringIn.readObject();
+				reciever = (String)stringIn.readObject();
+				message = (String)stringIn.readObject();
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			serverModel.sendMessage(sender, reciever, message);
+			System.out.println(message);
+
+		}
+
+		public void scpUpdateLog()
+		{
+			String user1="";
+			String user2="";
+			try {
+				user1 = (String)stringIn.readObject();
+				user2 = (String)stringIn.readObject();
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			StringBuilder allMessages=new StringBuilder();
+			HashMap<Timestamp, String> messages= serverModel.getMessages(user1, user2);
+			LinkedList<Timestamp> keys=new LinkedList<Timestamp>();
+			for(Timestamp time: messages.keySet()) {
+				keys.add(time);
+			}
+			keys.sort(Comparator.naturalOrder());
+			for(Timestamp time: keys) {
+				String message=messages.get(time);
+				allMessages.append(message+"\n");
+			}
+			try {
+				stringOut.writeObject(allMessages.toString());
+				System.out.println(allMessages.toString());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		@Override
 		public void run() {
@@ -218,10 +271,52 @@ public class ServerController {
 				case "setStatus":
 					scpSetStatus();
 					break;
-				
+				case "sendMsg":
+					scpSendMsg();
+					break;
+				case "updateLog":
+					scpUpdateLog();
+					break;
+				case "addFriend":
+					scpAddFriend();
+					break;
+				case "delFriend":
+					scpDelFriends();
+					break;
+				case "getFriends":
+					scpGetFriends();
+					break;
+				case "getUsers":
+					scpGetUsers();
+					break;
 				}
 			}
 			
+		}
+
+		private void scpGetFriends() {
+			// TODO Auto-generated method stub
+
+		}
+
+		private void scpDelFriends() {
+			// TODO Auto-generated method stub
+
+		}
+
+		private void scpAddFriend() {
+			// TODO Auto-generated method stub
+
+		}
+		public void scpGetUsers()
+		{
+			LinkedList<String> users= serverModel.getUsers();
+			try {
+				stringOut.writeObject(users);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 	}

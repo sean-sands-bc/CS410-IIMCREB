@@ -201,4 +201,23 @@ public class ServerSQLLink {
 			System.out.println("error");
     	}
 	}
+	
+	//Returns all the usernames in the database
+		public LinkedList<String> userNames() {
+			LinkedList<String> allUsers=new LinkedList<String>();
+			try {
+				String query1="select * from UID";
+				PreparedStatement p = conn.prepareStatement(query1);
+	    		p.clearParameters();
+	    		ResultSet r1= p.executeQuery();
+	    		while(r1.next()){
+	    			String name=r1.getString(1);
+	    			allUsers.add(name);
+	    		}
+			}
+			catch(SQLException ex) { 
+	            System.out.println("Could not find an account matching that user name and password.");
+	    	}
+			return allUsers;
+		}
 }
