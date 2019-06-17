@@ -185,7 +185,11 @@ public class ServerSQLLink {
 		catch(SQLException ex) { 
 			System.out.println("error");
     	}
-		return friends;
+		if(friends.size()==0){
+			return new LinkedList<String>();
+		}else{
+			return friends;
+		}
 	}
 	//Allows for a user to be added to a friendslist
 	public void newFriend(String friender, String friendee) {

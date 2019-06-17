@@ -280,9 +280,6 @@ public class ServerController {
 				case "addFriend":
 					scpAddFriend();
 					break;
-				case "delFriend":
-					scpDelFriends();
-					break;
 				case "getFriends":
 					scpGetFriends();
 					break;
@@ -295,17 +292,34 @@ public class ServerController {
 		}
 
 		private void scpGetFriends() {
-			// TODO Auto-generated method stub
+			String un = "";
+			try{
+				un = (String)stringIn.readObject();
+				LinkedList<String> frList = serverModel.getFriendList(un);
+				if(frList.isEmpty()) {
+					stringOut.writeObject(frList);
+				}else{
+					stringOut.writeObject(frList);
+				}
+			}catch (ClassNotFoundException | IOException e){
+
+				}
 
 		}
 
-		private void scpDelFriends() {
-			// TODO Auto-generated method stub
-
-		}
+		
 
 		private void scpAddFriend() {
-			// TODO Auto-generated method stub
+			LinkedList<String> frList = new LinkedList<String>();
+			String currentUser = "";
+			String addUser = "";
+			try{
+				currentUser = (String)stringIn.readObject();
+				addUser = (String)stringIn.readObject();
+			}catch (ClassNotFoundException | IOException e){
+				e.printStackTrace();
+			}
+			serverModel.addNewFriend(currentUser,addUser);
 
 		}
 		public void scpGetUsers()

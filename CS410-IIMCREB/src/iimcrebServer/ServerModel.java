@@ -47,5 +47,13 @@ public class ServerModel {
 	public LinkedList<String> getUsers(){
 		return s.userNames();
 	}
+	public LinkedList<String> getFriendList(String username){
+		//System.out.println(s.getFriendsList(username).getFirst());
+		return s.getFriendsList(username);
+	}
+
+	public void addNewFriend(String friender, String friendee){
+		s.newFriend(friender,friendee);
+	}
 
 }
