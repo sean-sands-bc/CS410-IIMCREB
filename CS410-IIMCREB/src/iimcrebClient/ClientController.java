@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
-import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class ClientController {
@@ -30,7 +28,7 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public int register(String username, String password, String email)
 	{
 		try {
@@ -46,7 +44,7 @@ public class ClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		String response = "";
 		try {
 			response = (String) stringIn.readObject();
@@ -56,7 +54,8 @@ public class ClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(response.equals("register")) { return 0; }
+		if(response.equals("register")) {
+			return 0; }
 		if(response.equals("taken")) { return 1; }
 		return 3;
 	}
@@ -167,7 +166,7 @@ public class ClientController {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public String updateLog(String friendname)
 	{
 		try {
@@ -178,25 +177,17 @@ public class ClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String log="";
+		String log = "";
 		try {
-			Object o=stringIn.readObject();
-			
-			System.out.println(o);
-			if(stringIn.available()>0)
-			stringIn.readObject();
-			
-			
-			log = (String)o;
-			System.out.println(log);
+			log = (String)stringIn.readObject();
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		return log;
 	}
-
+	
 	public void addFriend(String friendname)
 	{
 		try {
@@ -221,8 +212,9 @@ public class ClientController {
 		}
 	}
 
-	public String[] getFriends()
+	public LinkedList<String> getFriends()
 	{
+		LinkedList<String> temp = new LinkedList<String>();
 		try {
 			stringOut.writeObject("getFriends");
 			stringOut.writeObject(username);
@@ -230,28 +222,14 @@ public class ClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		try{
+			temp = (LinkedList<String>)stringIn.readObject();
+		}catch(IOException |ClassNotFoundException e){
 
-		return null;
-
-	}
-	
-	public LinkedList<String> getUsers(){
-		try {
-			stringOut.writeObject("getUsers");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		LinkedList<String> users=new LinkedList<String>();
-		try {
-			users = (LinkedList<String>)stringIn.readObject();
-		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return users;
+		
+		return temp;
+		
 	}
-	
 
 }

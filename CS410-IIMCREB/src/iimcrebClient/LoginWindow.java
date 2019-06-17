@@ -72,9 +72,9 @@ public class LoginWindow extends JFrame {
 		logPnl.add(logPasswordTxt, c);
 		
 		c.gridy = 2;
-		
+
 		logPnl.add(logLogBtn, c);
-		
+
 		add(logPnl);
 		setPreferredSize(new Dimension(200, 150));
 		pack();
