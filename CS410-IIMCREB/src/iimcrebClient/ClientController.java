@@ -180,15 +180,16 @@ public class ClientController {
 		}
 		String log="";
 		try {
-			Object o=stringIn.readObject();
-			
-			System.out.println(o);
-			if(stringIn.available()>0)
-			stringIn.readObject();
-			
-			
-			log = (String)o;
-			System.out.println(log);
+//			Object o=stringIn.readObject();
+//			
+//			System.out.println(o);
+//			if(stringIn.available()>0)
+//			stringIn.readObject();
+//			
+//			
+//			log = (String)o;
+//			System.out.println(log);
+			log = (String)stringIn.readObject();
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -221,8 +222,9 @@ public class ClientController {
 		}
 	}
 
-	public String[] getFriends()
+	public LinkedList<String> getFriends()
 	{
+		LinkedList<String> temp = new LinkedList<String>();
 		try {
 			stringOut.writeObject("getFriends");
 			stringOut.writeObject(username);
@@ -230,8 +232,11 @@ public class ClientController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return null;
+		try{
+			temp = (LinkedList<String>)stringIn.readObject();
+		}catch(IOException |ClassNotFoundException e){
+		}
+		return temp;
 
 	}
 	

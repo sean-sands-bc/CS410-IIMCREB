@@ -14,6 +14,9 @@ public class ContactsWindow extends JFrame {
 	JButton staBtn;
 	JMenuBar menuBar;
 	JMenu messageHistory;
+	JButton addFr;
+	JButton delFr;
+	LinkedList<String> friList;
 	
 	public ContactsWindow(ClientController cc)
 	{
@@ -48,6 +51,24 @@ public class ContactsWindow extends JFrame {
 			
 		});
 		
+		addFr = new JButton("add friend");
+		addFr.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AddFriend af = new AddFriend(cc);
+			}
+		});
+
+		delFr = new JButton("refresh");
+		delFr.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ContactsWindow cw = new ContactsWindow(cc);
+				dispose();
+				//DeleteFriend df = new DeleteFriend(cc);
+			}
+		});
+		
 		c.gridx = 0;
 		c.gridy = 0;
 		
@@ -62,6 +83,36 @@ public class ContactsWindow extends JFrame {
 		setJMenuBar(menuBar);
 		
 		add(conPnl);
+		
+		if(!cc.getFriends().isEmpty()) {
+			System.out.println("ccc");
+
+			try {
+				friList = cc.getFriends();
+				for (String friend : friList) {
+					JButton fr = new JButton(friend);
+					fr.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							MessageWindow mw = new MessageWindow(cc, friend);
+						}
+					});
+					c.gridy++;
+					conPnl.add(fr);
+				}
+			} catch (NullPointerException e) {
+
+			}
+		}
+		
+		c.gridy = 2;
+
+		conPnl.add(delFr, c);
+
+		c.gridy = 3;
+
+		conPnl.add(addFr, c);
+		
 		setPreferredSize(new Dimension(200, 500));
 		pack();
 		setVisible(true);
