@@ -9,11 +9,11 @@ public class ServerSQLLink {
 	
 	public ServerSQLLink() {
 		try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/IIMCREBData?serverTimezone=UTC&useSSL=TRUE";
-            String user, pass;
-            user = "student";
-            pass = "password";
+			Class.forName("com.mysql.jdbc.Driver");
+			String url = "jdbc:mysql://34.83.145.84:3306/cs410";
+			String user, pass;
+			user = "root";
+			pass = "cs410group";
             conn = DriverManager.getConnection(url, user, pass);
         }
         catch (ClassNotFoundException e){
@@ -22,7 +22,7 @@ public class ServerSQLLink {
 
         catch (SQLException ex) {
             System.out.println(ex);
-        } 
+        } //
 		//Removed to work, but may be needed somewhere
 //		finally {
 //            if (s.conn != null) {
@@ -173,6 +173,7 @@ public class ServerSQLLink {
 		LinkedList<String> friends=new LinkedList<String>();
 		try {
 			String query="select user_name_friendee from FriendList where user_name_friender = ?";
+			System.out.println("tried");
 			PreparedStatement p = conn.prepareStatement(query);
     		p.clearParameters();
     		p.setString(1, username);
@@ -181,11 +182,16 @@ public class ServerSQLLink {
     			String friend=r.getString(1);
     			friends.add(friend);
     		}
+    		System.out.println(friends.size());
 		}
 		catch(SQLException ex) { 
 			System.out.println("error");
     	}
-		return friends;
+		if(friends.size()==0){
+			return new LinkedList<String>();
+		}else{
+			return friends;
+		}
 	}
 	//Allows for a user to be added to a friendslist
 	public void newFriend(String friender, String friendee) {
@@ -195,6 +201,9 @@ public class ServerSQLLink {
     		p.clearParameters();
     		p.setString(1, friender);
 			p.setString(2, friendee);
+			p.executeUpdate();
+			p.setString(1, friendee);
+			p.setString(2, friender);
 			p.executeUpdate();
 		}
 		catch(SQLException ex) { 
